@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 // Configure NextAuth
-const handler = NextAuth({
+const auth = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
@@ -40,4 +40,5 @@ const handler = NextAuth({
   },
 });
 
-export { handler as GET, handler as POST }; 
+// Export the Next.js Auth.js API route handlers
+export const { GET, POST } = auth.handlers; 

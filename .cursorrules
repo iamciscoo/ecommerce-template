@@ -22,6 +22,9 @@
 - Never overwrite my .env file without first asking and confirming with me.
 
 ## Lessons
+- When working with shadcn/ui components, make sure to set up a proper ThemeProvider in a client component to avoid "useTheme() from the server" errors
+- In a Next.js App Router project, pay careful attention to client vs server component separation
+- Use a provider structure that wraps client-side functionality (theme, auth, toasts) to ensure proper hydration
 
 ## Scratchpad
 
@@ -42,15 +45,19 @@
   - [X] Prisma ORM
   - [X] PostgreSQL database configuration
   - [X] NextAuth.js beta for authentication
+- [X] Set up Pexels API integration for product images
+- [X] Ensure the project builds successfully
 
 #### Phase 2: Database and Authentication
 - [ ] Set up PostgreSQL database
 - [ ] Configure Prisma ORM
-  - [ ] Define database schema (users, products, categories, orders, etc.)
+  - [X] Define basic schema for users and authentication
+  - [ ] Define schema for products, categories, orders, etc.
   - [ ] Set up migrations
   - [ ] Create database seed scripts
 - [ ] Implement NextAuth.js (beta) authentication
-  - [ ] Configure authentication providers
+  - [X] Set up basic configuration
+  - [ ] Implement credential provider with proper security
   - [ ] Set up login/register pages
   - [ ] Implement user roles (admin, customer)
   - [ ] Create authentication middleware
