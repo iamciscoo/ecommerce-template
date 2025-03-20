@@ -6,7 +6,8 @@
     "dev": "next dev --turbopack",
     "build": "prisma generate && NEXT_SKIP_STATIC_GENERATION=true next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:seed": "npx tsx prisma/seed.ts"
   },
   "dependencies": {
     "@auth/prisma-adapter": "^2.8.0",
@@ -19,8 +20,10 @@
     "@radix-ui/react-select": "^2.1.6",
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.3",
+    "@types/bcrypt": "^5.0.2",
     "@types/next-auth": "^3.13.0",
     "@uploadthing/react": "^7.3.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.483.0",
@@ -49,6 +52,8 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.2",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
     "typescript": "^5"
   }
 }

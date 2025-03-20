@@ -49,12 +49,12 @@
 - [X] Ensure the project builds successfully
 
 #### Phase 2: Database and Authentication
-- [ ] Set up PostgreSQL database
-- [ ] Configure Prisma ORM
+- [X] Set up PostgreSQL database
+- [X] Configure Prisma ORM
   - [X] Define basic schema for users and authentication
-  - [ ] Define schema for products, categories, orders, etc.
-  - [ ] Set up migrations
-  - [ ] Create database seed scripts
+  - [X] Define schema for products, categories, orders, used/refurbished etc.
+  - [X] Set up migrations
+  - [X] Create database seed scripts
 - [ ] Implement NextAuth.js (beta) authentication
   - [X] Set up basic configuration
   - [ ] Implement credential provider with proper security
