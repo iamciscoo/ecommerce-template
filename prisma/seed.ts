@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { getPexelsImages } from '../src/lib/pexels';
 
 const prisma = new PrismaClient();
