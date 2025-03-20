@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import * as bcrypt from 'bcrypt';
+import { getPexelsImages } from '../src/lib/pexels';
 
 const prisma = new PrismaClient();
 
@@ -33,10 +34,17 @@ async function main() {
     await prisma.user.deleteMany();
   }
 
+  // Fetch images from Pexels API
+  console.log('Fetching images from Pexels API...');
+  const smartphoneImages = await getPexelsImages('smartphone', 3);
+  const laptopImages = await getPexelsImages('laptop', 3);
+  const electronicsImages = await getPexelsImages('electronics', 2);
+  const clothingImages = await getPexelsImages('clothing', 2);
+
   // Create admin user
   console.log('Creating admin user...');
   const adminPassword = await bcrypt.hash('admin123', 10);
-  const admin = await prisma.user.create({
+  await prisma.user.create({
     data: {
       name: 'Admin User',
       email: 'admin@example.com',
@@ -64,7 +72,7 @@ async function main() {
       name: 'Electronics',
       slug: 'electronics',
       description: 'Electronic devices and accessories',
-      image: 'https://images.pexels.com/photos/343457/pexels-photo-343457.jpeg',
+      image: electronicsImages[0]?.src.medium || 'https://placeholder.com/electronics',
     },
   });
 
@@ -73,7 +81,7 @@ async function main() {
       name: 'Smartphones',
       slug: 'smartphones',
       description: 'Latest smartphones and accessories',
-      image: 'https://images.pexels.com/photos/47261/pexels-photo-47261.jpeg',
+      image: smartphoneImages[0]?.src.medium || 'https://placeholder.com/smartphone',
       parentId: electronicsCategory.id,
     },
   });
@@ -83,17 +91,18 @@ async function main() {
       name: 'Laptops',
       slug: 'laptops',
       description: 'Powerful laptops for work and play',
-      image: 'https://images.pexels.com/photos/18105/pexels-photo.jpg',
+      image: laptopImages[0]?.src.medium || 'https://placeholder.com/laptop',
       parentId: electronicsCategory.id,
     },
   });
 
-  const clothingCategory = await prisma.category.create({
+  // Create clothing category
+  await prisma.category.create({
     data: {
       name: 'Clothing',
       slug: 'clothing',
       description: 'Stylish clothing for all occasions',
-      image: 'https://images.pexels.com/photos/934063/pexels-photo-934063.jpeg',
+      image: clothingImages[0]?.src.medium || 'https://placeholder.com/clothing',
     },
   });
 
@@ -113,7 +122,8 @@ async function main() {
     },
   });
 
-  const sizeOption = await prisma.optionType.create({
+  // Create size option type
+  await prisma.optionType.create({
     data: {
       name: 'Size',
       values: {
@@ -171,18 +181,11 @@ async function main() {
         ],
       },
       images: {
-        create: [
-          {
-            url: 'https://images.pexels.com/photos/47261/pexels-photo-47261.jpeg',
-            alt: 'Flagship Smartphone X - Front view',
-            position: 0,
-          },
-          {
-            url: 'https://images.pexels.com/photos/699122/pexels-photo-699122.jpeg',
-            alt: 'Flagship Smartphone X - Back view',
-            position: 1,
-          },
-        ],
+        create: smartphoneImages.map((image, index) => ({
+          url: image.src.large || image.src.medium,
+          alt: `Flagship Smartphone X - Image ${index + 1}`,
+          position: index,
+        })),
       },
       attributes: {
         create: [
@@ -243,18 +246,11 @@ async function main() {
         ],
       },
       images: {
-        create: [
-          {
-            url: 'https://images.pexels.com/photos/18105/pexels-photo.jpg',
-            alt: 'UltraBook Pro - Front view',
-            position: 0,
-          },
-          {
-            url: 'https://images.pexels.com/photos/205421/pexels-photo-205421.jpeg',
-            alt: 'UltraBook Pro - Side view',
-            position: 1,
-          },
-        ],
+        create: laptopImages.map((image, index) => ({
+          url: image.src.large || image.src.medium,
+          alt: `UltraBook Pro - Image ${index + 1}`,
+          position: index,
+        })),
       },
       attributes: {
         create: [
@@ -269,7 +265,7 @@ async function main() {
 
   // Create refurbished laptop
   console.log('Creating refurbished laptop product...');
-  const refurbishedLaptopProduct = await prisma.product.create({
+  await prisma.product.create({
     data: {
       name: 'UltraBook Pro (Refurbished)',
       slug: 'ultrabook-pro-refurbished',
@@ -288,13 +284,13 @@ async function main() {
         ],
       },
       images: {
-        create: [
+        create: laptopImages.length > 0 ? [
           {
-            url: 'https://images.pexels.com/photos/18105/pexels-photo.jpg',
+            url: laptopImages[0].src.large || laptopImages[0].src.medium,
             alt: 'UltraBook Pro Refurbished - Front view',
             position: 0,
-          },
-        ],
+          }
+        ] : [],
       },
       attributes: {
         create: [
@@ -310,7 +306,7 @@ async function main() {
 
   // Create user address
   console.log('Creating user address...');
-  const userAddress = await prisma.address.create({
+  await prisma.address.create({
     data: {
       firstName: 'John',
       lastName: 'Doe',
