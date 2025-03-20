@@ -1,8 +1,8 @@
 "use client";
 
-import { Toaster } from "@/src/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "./ThemeProvider";
-import AuthProvider from "@/src/contexts/AuthProvider";
+import AuthProvider from "@/contexts/AuthProvider";
 import { type ReactNode } from "react";
 
 export function Providers({ children }: { children: ReactNode }) {

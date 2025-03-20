@@ -25,6 +25,10 @@
 - When working with shadcn/ui components, make sure to set up a proper ThemeProvider in a client component to avoid "useTheme() from the server" errors
 - In a Next.js App Router project, pay careful attention to client vs server component separation
 - Use a provider structure that wraps client-side functionality (theme, auth, toasts) to ensure proper hydration
+- When implementing NextAuth.js with OAuth providers, ensure you set both server-side variables (like GOOGLE_CLIENT_ID) and client-side variables (like NEXT_PUBLIC_GOOGLE_CLIENT_ID)
+- When working with OAuth redirects, make sure your Google Cloud Console redirect URIs include /api/auth/callback/[provider]
+- Remove unused ESLint directives to keep the codebase clean and avoid warnings during build
+- For better UX with auth providers, separate social login options from traditional login with a visual divider
 
 ## Scratchpad
 
@@ -55,12 +59,16 @@
   - [X] Define schema for products, categories, orders, used/refurbished etc.
   - [X] Set up migrations
   - [X] Create database seed scripts
-- [ ] Implement NextAuth.js (beta) authentication
+- [X] Implement NextAuth.js (beta) authentication
   - [X] Set up basic configuration
-  - [ ] Implement credential provider with proper security
-  - [ ] Set up login/register pages
-  - [ ] Implement user roles (admin, customer)
-  - [ ] Create authentication middleware
+  - [X] Implement credential provider with proper security
+  - [X] Implement Google OAuth provider
+  - [X] Set up login/register pages
+  - [X] Create responsive UI with social login options
+  - [X] Implement user roles (admin, customer)
+  - [X] Create authentication middleware
+  - [X] Handle authentication errors and redirects
+  - [X] Set up proper client/server component separation
 
 #### Phase 3: Core Ecommerce Features
 - [ ] Product Management

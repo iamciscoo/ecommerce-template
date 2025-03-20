@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { getPexelsImages } from "@/src/lib/pexels";
+import { getPexelsImages } from "@/lib/pexels";
 
 type PexelsPhoto = {
   id: number;

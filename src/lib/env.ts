@@ -12,6 +12,11 @@ const envSchema = z.object({
   NEXTAUTH_URL: z.string().url(),
   NEXTAUTH_SECRET: z.string().min(1),
   
+  // OAuth Providers
+  GOOGLE_CLIENT_ID: z.string().min(1),
+  GOOGLE_CLIENT_SECRET: z.string().min(1),
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: z.string().min(1),
+  
   // Email
   RESEND_API_KEY: z.string().min(1),
   EMAIL_FROM: z.string().email(),
@@ -32,6 +37,7 @@ const envSchema = z.object({
 export const clientEnv = {
   NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
   NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
+  NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
 };
 
 /**
@@ -60,6 +66,11 @@ export function getServerEnv() {
     // Authentication
     NEXTAUTH_URL: process.env.NEXTAUTH_URL || "http://localhost:3000",
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET || "development-secret-key",
+    
+    // OAuth Providers
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || "",
+    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
+    NEXT_PUBLIC_GOOGLE_CLIENT_ID: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "",
     
     // Email
     RESEND_API_KEY: process.env.RESEND_API_KEY || "resend-dev-key",
