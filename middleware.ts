@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { auth } from "./auth";
 import type { NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 // Configuration for paths that require authentication
 const authConfig = {
@@ -27,18 +27,18 @@ export async function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check authentication using the auth helper
-  const session = await auth();
+  // Check authentication using JWT token directly instead of auth()
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // If there's no session, redirect to login
-  if (!session) {
+  // If there's no token, redirect to login
+  if (!token) {
     const signInUrl = new URL("/auth/signin", req.url);
     signInUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(signInUrl);
   }
 
   // Check for admin paths
-  if (isAdminPath(pathname) && session.user?.role !== "admin") {
+  if (isAdminPath(pathname) && token.role !== "admin") {
     // If the user is not an admin, redirect to access denied
     const accessDeniedUrl = new URL("/auth/error", req.url);
     accessDeniedUrl.searchParams.set("error", "AccessDenied");
