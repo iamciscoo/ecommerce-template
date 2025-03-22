@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, ReactNode, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
 // Create a context for search params
@@ -16,25 +16,22 @@ export function useSearchParamsContext() {
   return useContext(SearchParamsContext);
 }
 
-export function SearchParamsProvider({ 
-  children 
-}: { 
-  children: React.ReactNode;
-}) {
+// Separate component to wrap the actual hook usage
+function SearchParamsReader({ children }: { children: (params: URLSearchParams) => ReactNode }) {
   const searchParams = useSearchParams();
-  const [params, setParams] = useState<Record<string, string>>({});
+  return <>{children(searchParams)}</>;
+}
 
-  useEffect(() => {
-    const newParams: Record<string, string> = {};
-    searchParams?.forEach((value, key) => {
-      newParams[key] = value;
-    });
-    setParams(newParams);
-  }, [searchParams]);
-
+export function SearchParamsProvider({ children }: { children: ReactNode }) {
   return (
-    <SearchParamsContext.Provider value={{ params }}>
-      {children}
-    </SearchParamsContext.Provider>
+    <Suspense fallback={<div>Loading search parameters...</div>}>
+      <SearchParamsReader>
+        {(params) => (
+          <SearchParamsContext.Provider value={{ params }}>
+            {children}
+          </SearchParamsContext.Provider>
+        )}
+      </SearchParamsReader>
+    </Suspense>
   );
 } 

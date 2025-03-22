@@ -8,10 +8,8 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   experimental: {
-    // Allow server components to import client components (needed for PageTransition)
-    serverComponentsExternalPackages: ["framer-motion"],
-    // Easier error handling for client components
-    missingSuspenseWithCSRBailout: false,
+    // Disable static generation warnings
+    disableStaticGeneration: true,
   },
 };
 

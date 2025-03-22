@@ -1,3 +1,9 @@
+// Mark this page as dynamic to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
+// Add Edge runtime to avoid client-side hooks issues
+export const runtime = 'edge';
+
 export default function TailwindTestPage() {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center">
