@@ -1,14 +1,14 @@
 // Add Edge runtime to avoid client-side hooks issues
 export const runtime = 'edge';
 
+// Mark this page as dynamic to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 import { Metadata } from "next";
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-// Define the page as dynamic to ensure fresh data on each request
-export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Products | Ecommerce Platform",

@@ -8,7 +8,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-// Define as dynamic to ensure fresh data
+// Mark this page as dynamic to avoid static generation issues
 export const dynamic = 'force-dynamic';
 
 // Demo products - in a real app, this would come from a database or API

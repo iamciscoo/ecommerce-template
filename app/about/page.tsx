@@ -2,6 +2,9 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+// Mark this page as dynamic to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "About Us | Ecommerce Platform",
   description: "Learn more about our company and what we stand for",

@@ -2,7 +2,7 @@
 
 import { usePathname, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { ReactNode, useEffect, useState, use, Suspense, createElement } from "react";
+import { ReactNode, useEffect, useState, Suspense } from "react";
 
 // Separate component to wrap the useSearchParams hook
 function SearchParamsReader({ children }: { children: (searchParamsString: string) => ReactNode }) {
@@ -29,7 +29,7 @@ export function PageTransition({ children }: PageTransitionProps) {
   }
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>Loading page transition...</div>}>
       <SearchParamsReader>
         {(searchParamsString) => {
           const routeKey = `${pathname}?${searchParamsString}`;

@@ -5,6 +5,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
+// Mark this page as dynamic to avoid static generation issues
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: "Contact Us | Ecommerce Platform",
   description: "Get in touch with our team for any questions or support",

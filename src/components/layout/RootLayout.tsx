@@ -12,7 +12,7 @@ export function RootLayout({ children }: RootLayoutProps) {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <Suspense fallback={<div className="container py-10">Loading...</div>}>
+        <Suspense fallback={<div className="container py-10">Loading page content...</div>}>
           <PageTransition>{children}</PageTransition>
         </Suspense>
       </main>
