@@ -1,10 +1,11 @@
-import { Suspense } from "react";
-import AuthErrorContent from "./AuthErrorContent";
+import { redirect } from "next/navigation";
 
-export default function AuthErrorPage() {
-  return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
-      <AuthErrorContent />
-    </Suspense>
-  );
+// Add Edge runtime to avoid client-side hooks issues
+export const runtime = 'edge';
+
+export default function AuthErrorPage({ searchParams }: { searchParams: any }) {
+  // Redirect to simple-error page, passing along any search params
+  const params = new URLSearchParams(searchParams).toString();
+  const redirectUrl = `/auth/simple-error${params ? `?${params}` : ''}`;
+  redirect(redirectUrl);
 } 

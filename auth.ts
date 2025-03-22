@@ -74,11 +74,6 @@ export const authConfig = {
       return session;
     }
   },
-  pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error"
-  },
   session: {
     strategy: "jwt",
   }

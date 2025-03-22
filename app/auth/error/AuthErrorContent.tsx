@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export default function AuthErrorContent() {
   const searchParams = useSearchParams();
-  const error = searchParams ? searchParams.get("error") : null;
+  const error = searchParams?.get("error") || null;
   
   let errorTitle = "Authentication Error";
   let errorMessage = "An unexpected error occurred during authentication.";

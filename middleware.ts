@@ -11,6 +11,9 @@ const authConfig = {
     "/auth/signup",
     "/auth/error",
     "/auth/signout",
+    "/auth/simple-signin",
+    "/auth/simple-signup",
+    "/auth/simple-error",
     "/auth/forgot-password",
     "/auth/reset-password",
     "/api/auth/(.+)",
@@ -21,6 +24,35 @@ const authConfig = {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
+  
+  // Special handling for auth routes with client-side issues
+  if (pathname === "/auth/signout" || pathname === "/auth/signout-static") {
+    // Redirect directly to the API route
+    const signOutUrl = new URL("/api/auth/signout", req.url);
+    signOutUrl.searchParams.set("callbackUrl", "/");
+    return NextResponse.redirect(signOutUrl);
+  }
+  
+  if (pathname === "/auth/signin") {
+    // Redirect to our static sign-in page
+    return NextResponse.redirect(new URL("/auth/simple-signin", req.url));
+  }
+  
+  if (pathname === "/auth/signup") {
+    // Redirect to our static sign-up page
+    return NextResponse.redirect(new URL("/auth/simple-signup", req.url));
+  }
+  
+  if (pathname === "/auth/error") {
+    // Redirect to our static error page, preserving query parameters
+    const errorUrl = new URL("/auth/simple-error", req.url);
+    // Copy all search params
+    const searchParams = req.nextUrl.searchParams;
+    searchParams.forEach((value, key) => {
+      errorUrl.searchParams.set(key, value);
+    });
+    return NextResponse.redirect(errorUrl);
+  }
 
   // Check if the path is public
   if (isPublicPath(pathname)) {
@@ -32,7 +64,7 @@ export async function middleware(req: NextRequest) {
 
   // If there's no token, redirect to login
   if (!token) {
-    const signInUrl = new URL("/auth/signin", req.url);
+    const signInUrl = new URL("/auth/simple-signin", req.url);
     signInUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(signInUrl);
   }
@@ -40,7 +72,7 @@ export async function middleware(req: NextRequest) {
   // Check for admin paths
   if (isAdminPath(pathname) && token.role !== "admin") {
     // If the user is not an admin, redirect to access denied
-    const accessDeniedUrl = new URL("/auth/error", req.url);
+    const accessDeniedUrl = new URL("/auth/simple-error", req.url);
     accessDeniedUrl.searchParams.set("error", "AccessDenied");
     return NextResponse.redirect(accessDeniedUrl);
   }

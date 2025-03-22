@@ -1,10 +1,9 @@
-import { Suspense } from "react";
-import SignUpForm from "./SignUpForm";
+import { redirect } from "next/navigation";
+
+// Add Edge runtime to avoid client-side hooks issues
+export const runtime = 'edge';
 
 export default function SignUpPage() {
-  return (
-    <Suspense fallback={<div className="flex min-h-screen items-center justify-center">Loading...</div>}>
-      <SignUpForm />
-    </Suspense>
-  );
+  // Redirect to simple-signup page
+  redirect('/auth/simple-signup');
 } 

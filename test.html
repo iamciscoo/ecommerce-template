@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tailwind Test</title>
+  <link rel="stylesheet" href="/.next/static/css/app/layout.css">
+  <style>
+    /* Fallback styles if Tailwind doesn't load */
+    .fallback {
+      border: 3px solid red;
+      padding: 20px;
+      margin: 20px;
+      background-color: pink;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold text-blue-600 mb-4">Tailwind CSS Test</h1>
+    <p class="text-gray-700 mb-6">This page tests if Tailwind CSS is being correctly applied.</p>
+    
+    <div class="bg-gray-100 p-6 rounded-lg shadow-md">
+      <h2 class="text-xl font-semibold text-gray-800 mb-2">Tailwind Components</h2>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Button with Tailwind
+      </button>
+      <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="bg-white p-4 rounded shadow">Card 1</div>
+        <div class="bg-white p-4 rounded shadow">Card 2</div>
+        <div class="bg-white p-4 rounded shadow">Card 3</div>
+      </div>
+    </div>
+    
+    <div class="fallback mt-8">
+      <p>If you can see a red border and pink background, Tailwind might not be loading.</p>
+      <p>If this box has a gray background with a shadow, Tailwind is working!</p>
+    </div>
+  </div>
+</body>
+</html> 
